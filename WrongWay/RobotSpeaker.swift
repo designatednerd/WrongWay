@@ -30,7 +30,7 @@ class RobotSpeaker: NSObject {
   
   private var enqueuedUtterances = [AVSpeechUtterance]()
   
-  func speak(text: String, accent: EnglishAccent = .british) {
+  func speak(text: String, accent: EnglishAccent = .american) {
     let utterance = AVSpeechUtterance(string: text)
     utterance.voice = AVSpeechSynthesisVoice(language: accent.rawValue)
     self.enqueuedUtterances.append(utterance)

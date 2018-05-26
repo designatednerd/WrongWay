@@ -25,6 +25,10 @@
 		9BE96B0520B99BB200BECB57 /* RobotSpeaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE96B0420B99BB200BECB57 /* RobotSpeaker.swift */; };
 		9BE96B0A20B9A2C300BECB57 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9BE96B0820B9A2C300BECB57 /* InfoPlist.strings */; };
 		9BE96B0C20B9A4ED00BECB57 /* CoreLocation+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE96B0B20B9A4ED00BECB57 /* CoreLocation+Convenience.swift */; };
+		9BE96B0E20B9AC9600BECB57 /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE96B0D20B9AC9600BECB57 /* LoadingScreen.swift */; };
+		9BE96B1020B9AE5C00BECB57 /* NSLayoutConstraint+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE96B0F20B9AE5C00BECB57 /* NSLayoutConstraint+Convenience.swift */; };
+		9BE96B1220B9D9A700BECB57 /* HaversineDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE96B1120B9D9A700BECB57 /* HaversineDistance.swift */; };
+		9BE96B1420B9DBD300BECB57 /* Discouragements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE96B1320B9DBD300BECB57 /* Discouragements.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +52,10 @@
 		9BE96B0420B99BB200BECB57 /* RobotSpeaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotSpeaker.swift; sourceTree = "<group>"; };
 		9BE96B0920B9A2C300BECB57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9BE96B0B20B9A4ED00BECB57 /* CoreLocation+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLocation+Convenience.swift"; sourceTree = "<group>"; };
+		9BE96B0D20B9AC9600BECB57 /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
+		9BE96B0F20B9AE5C00BECB57 /* NSLayoutConstraint+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Convenience.swift"; sourceTree = "<group>"; };
+		9BE96B1120B9D9A700BECB57 /* HaversineDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaversineDistance.swift; sourceTree = "<group>"; };
+		9BE96B1320B9DBD300BECB57 /* Discouragements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discouragements.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +107,10 @@
 				9BE96AFE20B972E000BECB57 /* AutocompleteDataSource.swift */,
 				9BE96B0420B99BB200BECB57 /* RobotSpeaker.swift */,
 				9BE96B0B20B9A4ED00BECB57 /* CoreLocation+Convenience.swift */,
+				9BE96B0D20B9AC9600BECB57 /* LoadingScreen.swift */,
+				9BE96B0F20B9AE5C00BECB57 /* NSLayoutConstraint+Convenience.swift */,
+				9BE96B1120B9D9A700BECB57 /* HaversineDistance.swift */,
+				9BE96B1320B9DBD300BECB57 /* Discouragements.swift */,
 			);
 			path = WrongWay;
 			sourceTree = "<group>";
@@ -178,13 +190,17 @@
 				9BE96AF520B9677E00BECB57 /* GooglePlacesStatus.swift in Sources */,
 				9BE96AF320B964F600BECB57 /* GooglePlace.swift in Sources */,
 				9BE96AFF20B972E000BECB57 /* AutocompleteDataSource.swift in Sources */,
+				9BE96B1420B9DBD300BECB57 /* Discouragements.swift in Sources */,
 				9BE96AEF20B9610600BECB57 /* APIKeys.swift in Sources */,
 				9BE96B0320B99A0A00BECB57 /* DirectionsViewController.swift in Sources */,
+				9BE96B1220B9D9A700BECB57 /* HaversineDistance.swift in Sources */,
+				9BE96B0E20B9AC9600BECB57 /* LoadingScreen.swift in Sources */,
 				9BE96B0C20B9A4ED00BECB57 /* CoreLocation+Convenience.swift in Sources */,
 				9BE96ADF20B95E3500BECB57 /* ViewController.swift in Sources */,
 				9BE96AF720B9683A00BECB57 /* Data+Decoding.swift in Sources */,
 				9BE96B0520B99BB200BECB57 /* RobotSpeaker.swift in Sources */,
 				9BE96AFB20B96FC800BECB57 /* String+TextField.swift in Sources */,
+				9BE96B1020B9AE5C00BECB57 /* NSLayoutConstraint+Convenience.swift in Sources */,
 				9BE96AF120B9615700BECB57 /* GooglePlacesAPI.swift in Sources */,
 				9BE96AF920B9690500BECB57 /* Internets.swift in Sources */,
 				9BE96B0120B9892A00BECB57 /* GoogleMapInfo.swift in Sources */,

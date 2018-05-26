@@ -12,11 +12,25 @@ import CoreLocation
 
 class DirectionsViewController: UIViewController {
   
-  private lazy var mapView: MKMapView = {
+  private let mapView: MKMapView = {
     let mapView = MKMapView(frame: .zero)
     mapView.translatesAutoresizingMaskIntoConstraints = false
+    mapView.showsUserLocation = true
+    mapView.userTrackingMode = .follow
     
     return mapView
+  }()
+  
+  private lazy var closeButton: UIButton = {
+    let button = UIButton(type: .custom)
+    button.translatesAutoresizingMaskIntoConstraints = false
+    button.setTitle("Close", for: .normal)
+    button.backgroundColor = .red
+    button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+    button.layer.cornerRadius = 5
+    button.clipsToBounds = true
+    
+    return button
   }()
   
   private lazy var locationManager: CLLocationManager = {
@@ -32,6 +46,10 @@ class DirectionsViewController: UIViewController {
   
   private lazy var robot = RobotSpeaker()
   
+  private var loadingScreen: LoadingScreen?
+  
+  private var route: MKRoute?
+  
   init(destination: GooglePlaceDetails) {
     self.destination = destination
     super.init(nibName: nil, bundle: nil)
@@ -45,15 +63,16 @@ class DirectionsViewController: UIViewController {
     super.viewDidLoad()
     
     self.view.addSubview(self.mapView)
+    self.view.addSubview(self.closeButton)
+    self.mapView.delegate = self
+    self.mapView.addAnnotation(self.destination.annotation)
     
+    NSLayoutConstraint.activate(self.mapView.edgesToSuperview())
     NSLayoutConstraint.activate([
-      self.mapView.topAnchor.constraint(equalTo: self.view.topAnchor),
-      self.mapView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-      self.mapView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-      self.mapView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-      ])
-    
-    self.mapView.setRegion(self.destination.geometry.viewport.coordinateRegion, animated: false)
+      self.closeButton.topToSuperview(constant: 40),
+      self.closeButton.leadingToSuperview(constant: 20),
+    ])
+     self.mapView.setRegion(self.destination.geometry.viewport.coordinateRegion, animated: false)
     
   }
   
@@ -70,6 +89,80 @@ class DirectionsViewController: UIViewController {
     }
     
     self.mapView.add(line.polyline, level: .aboveRoads)
+    self.robot.speak(text: "Move it, lazy-ass")
+    self.startTimer()
+  }
+  
+  private func startTimer() {
+    Timer.scheduledTimer(withTimeInterval: 5,
+                         repeats: true,
+                         block: {
+                  [weak self] timer in
+                  guard let strongSelf = self else {
+                    timer.invalidate()
+                    return 
+                  }
+                  
+                  strongSelf.checkOrInsult()
+                })
+  }
+  
+  private func checkOrInsult() {
+    guard !isUserLocationOnPolyline() else {
+      return
+    }
+    
+    self.robot.speak(text: Discouragement.random)
+  }
+  
+  private func showLoadingScreen(withText text: String) {
+    let loading = self.loadingScreen ?? LoadingScreen()
+    loading.text = text
+    loading.alpha = 0
+    if (self.loadingScreen == nil) {
+      self.loadingScreen = loading
+      self.view.addSubview(loading)
+      NSLayoutConstraint.activate(loading.edgesToSuperview())
+    }
+    
+    loading.show()
+  }
+  
+  func hideLoadingScreen() {
+    self.loadingScreen?.hide()
+  }
+  
+  func isUserLocationOnPolyline() -> Bool {
+    let annotation = self.mapView.userLocation
+    
+    guard let polyline = mapView.overlays.first as? MKPolyline else {
+      return false
+    }
+    
+    return polyline.closeEnough(to: annotation.coordinate)
+  }
+}
+
+extension DirectionsViewController: MKMapViewDelegate {
+  
+  func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+    if overlay is MKPolyline {
+      let renderer = MKPolylineRenderer(overlay: overlay)
+      renderer.strokeColor = .orange
+      renderer.lineWidth = 5
+      
+      return renderer
+    }
+    
+    return MKOverlayRenderer()
+  }
+  
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    guard !(annotation is MKUserLocation) else {
+      return nil
+    }
+    
+    return MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
   }
 }
 
@@ -79,6 +172,10 @@ extension DirectionsViewController: CLLocationManagerDelegate {
     guard let firstLocation = locations.first else {
       return
     }
+    
+    self.mapView.setCenter(firstLocation.coordinate, animated: true)
+    
+    self.showLoadingScreen(withText: "Getting directions...")
     
     let directionsRequest = MKDirectionsRequest()
     directionsRequest.transportType = .walking
@@ -91,13 +188,20 @@ extension DirectionsViewController: CLLocationManagerDelegate {
     directions.calculate {
       [weak self] directionsResponse, error in
       
-
+      self?.hideLoadingScreen()
+      
       if let error = error {
         print("Error: \(error)")
         self?.robot.speak(text: "The programmer is a moron: \(error.localizedDescription)")
         return
       }
       
+      guard let response = directionsResponse else {
+        assertionFailure("No error and no response? Wat?")
+        return
+      }
+      
+      self?.showDirections(response)
     }
   }
   
@@ -115,10 +219,12 @@ extension DirectionsViewController: CLLocationManagerDelegate {
       robot.speak(text: "Just click the button, my pretty.")
     }
     
+    self.showLoadingScreen(withText: "Getting your location...")
     manager.requestLocation()
   }
   
   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     robot.speak(text: "The programmer is a moron: \(error.localizedDescription)")
+    self.hideLoadingScreen()
   }
 }
