@@ -1,0 +1,2 @@
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "This application wants to be able to continue to give you directions in the background. Or possibly kill you in your sleep.";
+"NSLocationWhenInUseUsageDescription" = "This application wants to give you directions from your current location, so it'd help to know where you are.";

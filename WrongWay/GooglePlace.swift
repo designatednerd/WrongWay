@@ -35,13 +35,16 @@ struct GooglePlaceDetails: Codable {
     case geometry
   }
   
-  
   var annotation: MKAnnotation {
     let pointAnnotation = MKPointAnnotation()
     pointAnnotation.title = self.address
     pointAnnotation.coordinate = self.geometry.location.coordinate
     
     return pointAnnotation
+  }
+  
+  var placemark: MKPlacemark {
+    return MKPlacemark(coordinate: self.geometry.location.coordinate)
   }
 }
 

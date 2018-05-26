@@ -17,14 +17,45 @@ enum EnglishAccent: String {
   case southAfrican = "en-ZA"
 }
 
-class RobotSpeaker {
+class RobotSpeaker: NSObject {
+
+  let synthesizer: AVSpeechSynthesizer
+
+  override init() {
+    self.synthesizer = AVSpeechSynthesizer()
+    super.init()
+    
+    self.synthesizer.delegate = self
+  }
   
-  private lazy var synthesizer = AVSpeechSynthesizer()
+  private var enqueuedUtterances = [AVSpeechUtterance]()
   
   func speak(text: String, accent: EnglishAccent = .british) {
     let utterance = AVSpeechUtterance(string: text)
     utterance.voice = AVSpeechSynthesisVoice(language: accent.rawValue)
-    synthesizer.speak(utterance)
+    self.enqueuedUtterances.append(utterance)
+    guard !synthesizer.isSpeaking else {
+      // we'll start when it shuts up
+      return
+    }
+    
+    self.speakNext()
   }
   
+  private func speakNext() {
+    guard !enqueuedUtterances.isEmpty else {
+      // Nothing more to say
+      return
+    }
+    
+    let nextUtterance = enqueuedUtterances.removeFirst()
+    synthesizer.speak(nextUtterance)
+  }
+}
+
+extension RobotSpeaker: AVSpeechSynthesizerDelegate {
+  
+  func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+    self.speakNext()
+  }
 }

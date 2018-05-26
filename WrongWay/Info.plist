@@ -41,5 +41,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This application wants to be able to continue to give you directions in the background. Or possibly kill you in your sleep.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>his application wants to give you directions from your current location, so it&apos;d help to know where you are.</string>
 </dict>
 </plist>
