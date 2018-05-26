@@ -54,6 +54,8 @@ extension AutocompleteDataSource: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let selected = self.results[indexPath.row]
     
+    tableView.deselectRow(at: indexPath, animated: true)
+    
     guard let delegate = self.delegate else {
       assertionFailure("You sure you don't want ta delegate there, goober?")
       return

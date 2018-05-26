@@ -20,8 +20,11 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="W1y-Pd-bTf">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="GUd-9h-4sR"/>
+                                </connections>
                             </mapView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Where do you want to go" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qej-sb-I3B">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Where do you want to go" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Qej-sb-I3B">
                                 <rect key="frame" x="20" y="40" width="335" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="sLv-VU-WJ3"/>
@@ -34,10 +37,10 @@
                                 </connections>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mKH-8e-S70">
-                                <rect key="frame" x="20" y="84" width="335" height="200"/>
+                                <rect key="frame" x="20" y="84" width="335" height="0.0"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="kja-K0-Gbt"/>
+                                    <constraint firstAttribute="height" id="kja-K0-Gbt"/>
                                 </constraints>
                             </tableView>
                         </subviews>
@@ -59,6 +62,7 @@
                     <connections>
                         <outlet property="mapView" destination="W1y-Pd-bTf" id="Yac-cW-L4V"/>
                         <outlet property="resultTableView" destination="mKH-8e-S70" id="Dgu-dC-Xgb"/>
+                        <outlet property="tableViewHeightConstraint" destination="kja-K0-Gbt" id="Cbj-y0-6sB"/>
                         <outlet property="textField" destination="Qej-sb-I3B" id="IDc-P1-VsF"/>
                     </connections>
                 </viewController>
