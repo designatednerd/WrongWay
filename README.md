@@ -7,9 +7,9 @@ This project started here:
 
 And ended here (heads up: NSFW language, you might want put your headphones on): 
 
-<div>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/VR4cF1ixGMo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-</div>
+[![Stupid Hackathon Video](https://img.youtube.com/vi/VR4cF1ixGMo/0.jpg)](https://www.youtube.com/watch?v=VR4cF1ixGMo "Stupid Hackathon Video")
+
+
 
 ## If you actually want to run this
 
