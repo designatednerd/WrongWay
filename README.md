@@ -3,7 +3,7 @@ A project for https://stupidhackath.no/
 
 This project started here: 
 
-![](post_it.jpg)
+![](post_it_small.jpg)
 
 And ended here (heads up: NSFW language, you might want put your headphones on): 
 
